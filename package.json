@@ -1,0 +1,15 @@
+{
+  "name": "mediapp",
+  "version": "1.0.0",
+  "description": "mini projeto da disciplina prog 2",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "João Carlos R Junior",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongoose": "^8.18.0"
+  }
+}
