@@ -4,11 +4,6 @@ const schema = mongoose.schema;
 
 const pacientSchema = new schema( {
 
-    pacientid: {
-        type: String,
-        required: [true, 'PacientID is required']
-    },
-
     name: {
         type: String,
         required: [true, 'Name is required']
@@ -16,8 +11,7 @@ const pacientSchema = new schema( {
 
     birthdate: {
         type: Date,
-        required: [true, 'Birthdate is required'],
-        unique: true
+        required: [true, 'Birthdate is required']
     },
     email: {
         type: String,

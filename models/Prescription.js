@@ -25,7 +25,6 @@ const prescriptionSchema = new schema( {
 
     instructions:{
         type: String,
-        required: [true, 'Instructions are required']
     },
 
     createdAt: {
