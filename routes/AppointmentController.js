@@ -1,62 +1,69 @@
-import { express } from "express";
-import {  appointmentServices} from "../services/AppointmentService";
+import express from "express";
+import appointmentService from "../services/AppointmentService.js"; // singular, default import
 
+const router = express.Router();
 
-let router = express.router();
-
-router.get('./appointments', async(req, res) => {
+// GET /appointments - lista todos os appointments
+router.get('/appointments', async (req, res) => {
     try {
-        const appointments = await appointmentServices.getAllAppointments();
-        res.send(appointments)
+        const appointments = await appointmentService.getAllAppointment();
+        res.status(200).json(appointments);
     } catch (error) {
-        console.log(error)
-        res.status(500).send(error);
+        console.error(error);
+        res.status(500).json({ error: error.message });
     }
 });
 
-router.get('./getAppointment/:id', async(req, res) => {
-    const {id} = req.params;
+// GET /appointments/:id - busca appointment por ID
+router.get('/appointments/:id', async (req, res) => {
+    const { id } = req.params;
     try {
-        const appointment = await appointmentServices.getAppointment(id);
-        res.send(appointment)
+        const appointment = await appointmentService.getAppointment(id);
+        if (!appointment) return res.status(404).json({ message: "Appointment not found" });
+        res.status(200).json(appointment);
     } catch (error) {
-        console.log(error)
-        res.status(500).send(error);
+        console.error(error);
+        res.status(500).json({ error: error.message });
     }
 });
 
-router.post('./postAppointment/:id', async(req, res) => {
-    const {date, doctorId, pacientId} = req.params;
+// POST /appointments - cria um novo appointment
+router.post('/appointments', async (req, res) => {
+    const { date, doctorId, pacientId } = req.body;
     try {
-        const appointment = await appointmentServices.saveAppointment({date, doctorId, pacientId});
-        res.send(appointment)
+        const appointment = await appointmentService.saveAppointment({ date, doctorId, pacientId });
+        res.status(201).json(appointment);
     } catch (error) {
-        console.log(error)
-        res.status(500).send(error);
+        console.error(error);
+        res.status(500).json({ error: error.message });
     }
 });
 
-router.put('./appointments/:id', async(req, res) => {
-    const {id} = req.params;
-    const {date, doctorId, pacientId} = req.body;
+// PUT /appointments/:id - atualiza um appointment
+router.put('/appointments/:id', async (req, res) => {
+    const { id } = req.params;
+    const { date, doctorId, pacientId } = req.body;
     try {
-        const appointment = await appointmentServices.updateAppointment(id, {date, doctorId, pacientId});
-        res.send(appointment)
+        const appointment = await appointmentService.updateAppointment(id, { date, doctorId, pacientId });
+        if (!appointment) return res.status(404).json({ message: "Appointment not found" });
+        res.status(200).json(appointment);
     } catch (error) {
-        console.log(error)
-        res.status(500).send(error);
+        console.error(error);
+        res.status(500).json({ error: error.message });
     }
 });
 
-router.put('./appointments/:id', async(req, res) => {
-    const {id} = req.params;
+// DELETE /appointments/:id - remove um appointment
+router.delete('/appointments/:id', async (req, res) => {
+    const { id } = req.params;
     try {
-        const appointment = await appointmentServices.deleteAppointment(id);
-        res.send(appointment)
+        const deleted = await appointmentService.deleteAppointment(id);
+        if (!deleted) return res.status(404).json({ message: "Appointment not found" });
+        res.status(200).json({ message: "Appointment deleted successfully" });
     } catch (error) {
-        console.log(error)
-        res.status(500).send(error);
+        console.error(error);
+        res.status(500).json({ error: error.message });
     }
 });
 
-export default router();
+export default router;

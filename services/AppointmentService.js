@@ -1,4 +1,4 @@
-import appointmentRepository, { AppointmentRepository } from "../repositories/AppointmentRepository";
+import  AppointmentRepository  from "../repositories/AppointmentRepository.js";
 
 const getAllAppointments = async () => {
     return await AppointmentRepository;
@@ -13,11 +13,11 @@ const saveAppointment = async ({date, doctorId, pacientId}) => {
 }
 
 const updateAppointment = async (id, {date, doctorId, pacientId}) => {
-    return appointmentRepository.updateAppointment(id, {date, doctorId, pacientId})
+    return AppointmentRepository.updateAppointment(id, {date, doctorId, pacientId})
 }
 
 const deleteAppointment = async (id) => {
-    return appointmentRepository.deleteAppointment(id);
+    return AppointmentRepository.deleteAppointment(id);
 }
 
 const appointmentServices = {

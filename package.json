@@ -1,6 +1,7 @@
 {
   "name": "mediapp",
   "version": "1.0.0",
+  "type": "module",
   "description": "mini projeto da disciplina prog 2",
   "main": "index.js",
   "scripts": {

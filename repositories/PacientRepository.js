@@ -1,6 +1,6 @@
-import { pacient } from "..//models/Pacient";
+import  pacient  from "..//models/Pacient.js";
 
-const getAllAppointments = async () => {
+const getAllPacient = async () => {
     return await pacient.find();
 }
 
@@ -37,7 +37,7 @@ const deletePacient = async (id) => {
 }
 
 const pacientRepository = {
-    getAllAppointments, 
+    getAllPacient, 
     getPacient,
     savePacient,
     updatePacient,
