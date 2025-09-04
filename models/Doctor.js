@@ -1,10 +1,6 @@
 import mongoose from "mongoose";
 
 const DoctorSchema = new mongoose.Schema({
-    doctorid: {
-        type: String,
-        required: [true, 'DoctorID is required']
-    },
     name: {
         type: String,
         required: [true, 'Doctor name is required']
@@ -18,7 +14,7 @@ const DoctorSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Password is required']
     },
-    medicalspecialty: {
+    medicalSpecialty: {
         type: String,
         required: [true, 'Medical Specialty is required']
     },

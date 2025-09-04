@@ -1,15 +1,18 @@
-import  express  from "express";
-import  pkg  from "body-parser";
-import  router  from "./routes/router.js";
+import express from "express";
+import router from "./routes/router.js";
+import db from "./Database/Database.js";
 
 const app = express();
-const { json, urlencoded } = pkg;
 
-app.use(json());
-app.use( urlencoded({extended: true}));
+// Middleware para JSON
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.listen(3000, function(){
-    console.log("Listening to port 3000")
-})
-
+// Rotas
 app.use("/", router);
+
+// Servidor
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`Listening to port ${PORT}`);
+});

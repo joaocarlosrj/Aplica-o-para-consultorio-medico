@@ -1,48 +1,58 @@
-import  doctor  from "../models/Doctor.js";
+import Doctor from "../models/Doctor.js";
 
-const getAlldoctor = async () => {
-    return await doctor.find();
-}
-
-const getDoctor = async (id) => {
+// 🔹 Busca todos os doctors
+const getAllDoctors = async () => {
     try {
-        return await doctor.findById(id);
+        return await Doctor.find();
     } catch (error) {
-        throw new Error(error)
+        throw new Error("Erro ao buscar todos os doctors: " + error.message);
     }
-} 
+};
 
-const saveDoctor = async (name, login, password, medicalspecialty, medicalRegistration, email, phone) => {
+// 🔹 Busca doctor por ID
+const getDoctorById = async (id) => {
     try {
-        const doctor = new doctor (name, login, password, medicalspecialty, medicalRegistration, email, phone);
-        return await doctor.save();
+        return await Doctor.findById(id);
     } catch (error) {
-        throw new Error(error)
+        throw new Error("Erro ao buscar doctor por ID: " + error.message);
     }
-}
+};
 
-const updateDoctor = async () => {
+// 🔹 Salva um novo doctor
+const saveDoctor = async (doctorData) => {
     try {
-        return await doctor.findByIdAndUpdate(id,{login, password, medicalspecialty, medicalRegistration, email, phone}, {new: true});
+        const newDoctor = new Doctor(doctorData);
+        return await newDoctor.save();
     } catch (error) {
-        throw new Error(error);
+        throw new Error("Erro ao salvar doctor: " + error.message);
     }
-} 
+};
 
+// 🔹 Atualiza um doctor existente
+const updateDoctor = async (id, updateData) => {
+    try {
+        return await Doctor.findByIdAndUpdate(id, updateData, { new: true });
+    } catch (error) {
+        throw new Error("Erro ao atualizar doctor: " + error.message);
+    }
+};
+
+// 🔹 Deleta um doctor
 const deleteDoctor = async (id) => {
     try {
-        return await doctor.findByIdAndUpdate(id)
+        return await Doctor.findByIdAndDelete(id);
     } catch (error) {
-        throw new Error(error);
+        throw new Error("Erro ao deletar doctor: " + error.message);
     }
-}
+};
 
+// 🔹 Exporta o repository
 const doctorRepository = {
-    getAlldoctor,
-    getDoctor,
+    getAllDoctors,
+    getDoctorById,
     saveDoctor,
     updateDoctor,
     deleteDoctor
-}
+};
 
 export default doctorRepository;
